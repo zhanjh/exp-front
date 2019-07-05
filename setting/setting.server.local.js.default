@@ -1,0 +1,12 @@
+/* eslint-env node */
+
+module.exports = {
+    front: {
+        port: 8197
+    },
+    site: {
+        static: {
+            host: 'tecposter.cn:8197'
+        }
+    }
+};

@@ -1,0 +1,3 @@
+export const localSetting = {
+    apiUrl: 'ws://www.tecposter.cn:8090/ws'
+};
