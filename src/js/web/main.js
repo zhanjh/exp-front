@@ -9,7 +9,7 @@ const browserRouter = browser_router();
 browserRouter
   .add('/', 'home', 'landing/home')
   .add('/contact/list', 'contact.list', 'contact/list')
-  .add('/contact/search', 'contact.search', 'contact/list')
+  .add('/contact/filter', 'contact.filter', 'contact/filter')
   .add('/contact/detail/{userID:[0-9]+}', 'contact.show', 'contact/show');
 
 const mainElem = oneElem('.page .main');

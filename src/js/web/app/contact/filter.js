@@ -8,10 +8,10 @@ const listView = getListView();
 listView
   .on(
     listView.allowedEvent.reload,
-    (query) => browser_router().navigate('contact.list', {}, query)
-  ).on(
-    listView.allowedEvent.filter,
     (query) => browser_router().navigate('contact.filter', {}, query)
+  ).on(
+    listView.allowedEvent.list,
+    () => browser_router().navigate('contact.list')
   );
 
 export default async () => {
@@ -20,11 +20,11 @@ export default async () => {
   const query = extractQuery();
 
   listView.update({
-    keyword: '',
+    keyword: query.keyword,
     offset: query.offset || 0,
     totalCount,
     query: query,
-    contacts: await repo.listContacts(query.offset, limit, query.asc, query.desc)
+    contacts: await repo.filterContacts(query.keyword, query.offset, limit, query.asc || '', query.desc || '')
   });
   return listView;
 };

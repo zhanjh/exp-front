@@ -3,7 +3,9 @@ import {View} from 'gap/View';
 const itemCountPerPage = 10;
 const query = {};
 const Event = {
-  reload: 'reload'
+  reload: 'reload',
+  filter: 'filter',
+  list: 'list'
 };
 
 export class ListView extends View {
@@ -11,9 +13,10 @@ export class ListView extends View {
     return this.html`
       <div class="ctn contac-list">
         <br>
-        <form action="javascript:;">
+          <form action="javascript:;" on-submit=${(e, elem) => this.submit(e, elem)}>
           <div class="input-group">
             <input class="input-group-field" placeholder="Search contacts by name" type="search"
+              ref=${input => this.keywordInput = input}
               bind-value="keyword">
             <div class="input-group-button">
               <input type="submit" class="button" value="search">
@@ -38,6 +41,23 @@ export class ListView extends View {
 
   get allowedEvent() {
     return Event;
+  }
+
+  submit() {
+    const keyword = this.keywordInput.value.trim();
+    if (keyword) {
+      const query = this.clearQuery();
+      query.keyword = keyword;
+      this.trigger(this.allowedEvent.filter, query);
+    }
+  }
+
+  clearQuery() {
+    query.offset = 0;
+    query.asc = '';
+    query.desc = '';
+    query.keyword = '';
+    return query;
   }
 
   clickTable(evt) {
