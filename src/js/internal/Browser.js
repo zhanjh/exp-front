@@ -1,49 +1,49 @@
 export class Browser {
-    constructor(basePath = '') {
-        this.basePath = basePath;
+  constructor(basePath = '') {
+    this.basePath = basePath;
+  }
+
+  setBasePath(path) {
+    this.basePath = path;
+  }
+
+  genKey() {
+    return Date.now().toFixed(3);
+  }
+
+  getPath() {
+    //let fullpath = window.location.pathname.replace(/\/$/, '');
+    let fullpath = window.location.pathname;
+    fullpath = fullpath === '/' ? fullpath : fullpath.replace(/\/$/, '');
+
+    if (fullpath.indexOf(this.basePath) !== 0) {
+      throw new Error('Error request ' + fullpath);
     }
 
-    setBasePath(path) {
-        this.basePath = path;
-    }
+    return (fullpath.substr(this.basePath.length) || '/');
+  }
 
-    genKey() {
-        return Date.now().toFixed(3);
-    }
+  setPath(path) {
+    window.history.pushState(
+      {key: this.genKey()},
+      '',
+      this.basePath + path
+    );
+  }
 
-    getPath() {
-        //let fullpath = window.location.pathname.replace(/\/$/, '');
-        let fullpath = window.location.pathname;
-        fullpath = fullpath === '/' ? fullpath : fullpath.replace(/\/$/, '');
+  replacePath(path) {
+    window.history.replaceState(
+      {key: this.genKey()},
+      '',
+      this.basePath + path
+    );
+  }
 
-        if (fullpath.indexOf(this.basePath) !== 0) {
-            throw new Error('Error request ' + fullpath);
-        }
+  go(n) {
+    window.history.go(n);
+  }
 
-        return (fullpath.substr(this.basePath.length) || '/');
-    }
-
-    setPath(path) {
-        window.history.pushState(
-            {key: this.genKey()},
-            '',
-            this.basePath + path
-        );
-    }
-
-    replacePath(path) {
-        window.history.replaceState(
-            {key: this.genKey()},
-            '',
-            this.basePath + path
-        );
-    }
-
-    go(n) {
-        window.history.go(n);
-    }
-
-    onPopstate(handle) {
-        window.addEventListener('popstate', handle);
-    }
+  onPopstate(handle) {
+    window.addEventListener('popstate', handle);
+  }
 }
