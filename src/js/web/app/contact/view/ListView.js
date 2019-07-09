@@ -1,4 +1,5 @@
 import {View} from 'gap/View';
+import {getAge} from './../fun/get-age';
 
 const itemCountPerPage = 10;
 const query = {
@@ -11,13 +12,14 @@ const query = {
 const Event = {
   //reload: 'reload',
   filter: 'filter',
-  list: 'list'
+  list: 'list',
+  showDetail: 'showDetail'
 };
 
 export class ListView extends View {
   template() {
     return this.html`
-      <div class="ctn contac-list">
+      <div class="ctn contact-list">
         <br>
           <form action="javascript:;" on-submit=${(e, elem) => this.submit(e, elem)}>
           <div class="input-group">
@@ -81,7 +83,19 @@ export class ListView extends View {
       } else if (target.hasClass('sort-desc')) {
         this.resort(sortAttr, '');
       }
+      return;
     }
+
+    if (!target.hasClass('detail')) {
+      return;
+    }
+
+    const userID = target.getAttribute('data-user-id');
+    this.showDetail(userID);
+  }
+
+  showDetail(userID) {
+    this.trigger(this.allowedEvent.showDetail, {userID});
   }
 
   resort(attr, type) {
@@ -108,7 +122,7 @@ export class ListView extends View {
           <td>${contact.title}</td>
           <td>${contact.name}</td>
           <td>${this.getAge(contact.birthDate)}</td>
-          <td><a href="#">${contact.detailCount}</a></td>
+          <td><a href="javascript:;" class="detail" data-user-id="${contact.userID}">${contact.detailCount}</a></td>
           <td>${this.getFavorTag(contact)}</td>
         </tr>
       `;
@@ -142,15 +156,7 @@ export class ListView extends View {
   }
 
   getAge(birthDateIn) {
-    const today = new Date();
-    const birthDate = new Date(birthDateIn);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age = age - 1;
-    }
-
-    return age;
+    return getAge(birthDateIn);
   }
 
   generatePagination(offset, total) {

@@ -24,5 +24,9 @@ export const repo = {
   filterContacts: async (keyword, offset, limit, asc, desc) => {
     const url = apiURL + '/contact/filter';
     return await newRequest().getJson(url, filterQuery({keyword, offset, limit, asc, desc}));
+  },
+  fetchContact: async (userID) => {
+    const url = apiURL + '/contact/fetch';
+    return await newRequest().getJson(url, filterQuery({userID}));
   }
 };

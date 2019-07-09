@@ -7,20 +7,12 @@ listView
     listView.allowedEvent.filter,
     (query) => browser_router().navigate('contact.filter', {}, query)
   ).on(
+    listView.allowedEvent.showDetail,
+    (params) => browser_router().navigate('contact.show', params)
+  ).on(
     listView.allowedEvent.list,
     (query) => browser_router().navigate('contact.list', {}, query)
   );
-
-/*
-listView
-  .on(
-    listView.allowedEvent.reload,
-    (query) => browser_router().navigate('contact.list', {}, query)
-  ).on(
-    listView.allowedEvent.filter,
-    (query) => browser_router().navigate('contact.filter', {}, query)
-  );
-*/
 
 
 

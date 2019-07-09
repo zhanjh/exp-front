@@ -50,7 +50,10 @@ const front = require('gap-node-front')({
         includePaths: []
     },
     public: {
-        publicSlug: '',
+        publicSlug: {
+            dev: '*',
+            dist: '*'
+        },
         publicDir: 'site/public'
     }
 });
