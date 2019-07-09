@@ -1,3 +1,3 @@
 export const setting = {
-    localeKey: 'en-us'
+  localeKey: 'en-us'
 };

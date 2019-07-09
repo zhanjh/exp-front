@@ -13,55 +13,55 @@ const port = localSetting.front.port || 8007;
 const staticHost = localSetting.site.static.host || 'localhost';
 
 const front = require('gap-node-front')({
-    baseDir: baseDir,
-    port: port,
-    staticHost: staticHost,
-    webpack: {
-        publicSlug: {
-            dev: 'dev/js',
-            dist: 'dist/js'
-        },
-        contextDir: 'src/js/web',
-        outputDir: {
-            dev: 'site/static/dev/js',
-            dist: 'site/static/dist/js'
-        },
-        alias: {},
-        modules: [
-            'node_modules',
-            'src/js/lib',
-            'src/js/internal',
-            'src/js/third'
-        ],
-        entry: {
-            main: './main.js'
-        },
+  baseDir: baseDir,
+  port: port,
+  staticHost: staticHost,
+  webpack: {
+    publicSlug: {
+      dev: 'dev/js',
+      dist: 'dist/js'
     },
-    scss: {
-        publicSlug: {
-            dev: 'dev/css',
-            dist: 'dist/css'
-        },
-        inputDir: 'src/scss',
-        outputDir: {
-            dev: 'site/static/dev/css',
-            dist: 'site/static/dist/css'
-        },
-        includePaths: []
+    contextDir: 'src/js/web',
+    outputDir: {
+      dev: 'site/static/dev/js',
+      dist: 'site/static/dist/js'
     },
-    public: {
-        publicSlug: {
-            dev: '*',
-            dist: '*'
-        },
-        publicDir: 'site/public'
-    }
+    alias: {},
+    modules: [
+      'node_modules',
+      'src/js/lib',
+      'src/js/internal',
+      'src/js/third'
+    ],
+    entry: {
+      main: './main.js'
+    },
+  },
+  scss: {
+    publicSlug: {
+      dev: 'dev/css',
+      dist: 'dist/css'
+    },
+    inputDir: 'src/scss',
+    outputDir: {
+      dev: 'site/static/dev/css',
+      dist: 'site/static/dist/css'
+    },
+    includePaths: []
+  },
+  public: {
+    publicSlug: {
+      dev: '*',
+      dist: '*'
+    },
+    publicDir: 'site/public'
+  }
 });
 
 const cmd = process.argv[2];
 
 if (cmd === 'server') {
-    front.runServer();
+  front.runServer();
 } else if (cmd === 'release') {
-    front.release();
+  front.release();
 }
