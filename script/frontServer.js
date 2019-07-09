@@ -37,18 +37,6 @@ const front = require('gap-node-front')({
       main: './main.js'
     },
   },
-  scss: {
-    publicSlug: {
-      dev: 'dev/css',
-      dist: 'dist/css'
-    },
-    inputDir: 'src/scss',
-    outputDir: {
-      dev: 'site/static/dev/css',
-      dist: 'site/static/dist/css'
-    },
-    includePaths: []
-  },
   public: {
     publicSlug: {
       dev: '*',
