@@ -6,15 +6,17 @@ const listView = getListView();
 
 export default async () => {
   const limit = listView.itemCountPerPage;
-  const totalCount = 10000;
   const query = extractQuery();
+  const res = await repo.filterContacts(query.keyword, query.offset, limit, query.asc, query.desc);
 
   listView.update({
     keyword: query.keyword,
-    offset: query.offset || 0,
-    totalCount,
+    pagination: {
+      offset: query.offset || 0,
+      total: res.total,
+    },
     query: query,
-    contacts: await repo.filterContacts(query.keyword, query.offset, limit, query.asc, query.desc)
+    contacts: res.contacts
   });
   return listView;
 };

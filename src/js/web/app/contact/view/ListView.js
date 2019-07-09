@@ -34,8 +34,8 @@ export class ListView extends View {
           ${contacts => this.generateTable(contacts)}
         </div>
 
-        <nav aria-label="Pagination" watch="offset" on-click=${e => this.clickPagination(e)}>
-          ${offset => this.generatePagination(offset)}
+        <nav aria-label="Pagination" watch="pagination" on-click=${e => this.clickPagination(e)}>
+          ${pagination => this.generatePagination(pagination.offset, pagination.total)}
         </nav>
       </div>
     `;
@@ -153,9 +153,9 @@ export class ListView extends View {
     return age;
   }
 
-  generatePagination(offset) {
+  generatePagination(offset, total) {
     const currentPage = Math.ceil(offset / this.itemCountPerPage) + 1;
-    const totalPage = Math.ceil(this.data.totalCount / this.itemCountPerPage);
+    const totalPage = Math.ceil(total / this.itemCountPerPage);
     this.currentPage = currentPage;
 
     //console.log(currentPage, totalPage);
