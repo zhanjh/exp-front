@@ -5,15 +5,6 @@ import {extractQuery} from './extract-query';
 
 const listView = getListView();
 
-listView
-  .on(
-    listView.allowedEvent.reload,
-    (query) => browser_router().navigate('contact.list', {}, query)
-  ).on(
-    listView.allowedEvent.filter,
-    (query) => browser_router().navigate('contact.filter', {}, query)
-  );
-
 export default async () => {
   const limit = listView.itemCountPerPage;
   const totalCount = 10000;

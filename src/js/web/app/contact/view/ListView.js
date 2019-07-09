@@ -1,9 +1,15 @@
 import {View} from 'gap/View';
 
 const itemCountPerPage = 10;
-const query = {};
+const query = {
+  offset: 0,
+  asc: '',
+  desc: '',
+  keyword: ''
+};
+
 const Event = {
-  reload: 'reload',
+  //reload: 'reload',
   filter: 'filter',
   list: 'list'
 };
@@ -45,18 +51,21 @@ export class ListView extends View {
 
   submit() {
     const keyword = this.keywordInput.value.trim();
-    if (keyword) {
-      const query = this.clearQuery();
-      query.keyword = keyword;
-      this.trigger(this.allowedEvent.filter, query);
-    }
+    const query = this.resetQuery({keyword});
+
+    this.reload(query);
   }
 
-  clearQuery() {
+  resetQuery(reset) {
     query.offset = 0;
     query.asc = '';
     query.desc = '';
     query.keyword = '';
+    Object.keys(query).forEach(key => {
+      if (Object.prototype.hasOwnProperty.call(reset, key)) {
+        query[key] = reset[key];
+      }
+    });
     return query;
   }
 
@@ -83,7 +92,8 @@ export class ListView extends View {
     }
 
     query.offset = 0;
-    this.trigger(this.allowedEvent.reload, query);
+    //this.trigger(this.allowedEvent.reload, query);
+    this.reload(query);
   }
 
   getFavorTag(contact) {
@@ -210,6 +220,15 @@ export class ListView extends View {
       targetPage = currentPage + 1;
     }
     query.offset = (targetPage - 1) * this.itemCountPerPage;
-    this.trigger(Event.reload, query);
+    //this.trigger(Event.reload, query);
+    this.reload(query);
+  }
+  
+  reload(query) {
+    if (query.keyword) {
+      this.trigger(this.allowedEvent.filter, query);
+    } else {
+      this.trigger(this.allowedEvent.list, query);
+    }
   }
 }

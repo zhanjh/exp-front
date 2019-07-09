@@ -8,13 +8,21 @@ const newRequest = () => {
   return request;
 };
 
+const filterQuery = (query) => {
+  const res = {};
+  Object.keys(query)
+    .filter(key => query[key] || false)
+    .forEach(key => res[key] = query[key]);
+  return res;
+};
+
 export const repo = {
-  listContacts: async (offset, limit, asc = '', desc = '') => {
+  listContacts: async (offset, limit, asc, desc) => {
     const url = apiURL + '/contact/list';
-    return await newRequest().getJson(url, {offset, limit, asc, desc});
+    return await newRequest().getJson(url, filterQuery({offset, limit, asc, desc}));
   },
-  filterContacts: async (keyword, offset, limit, asc = '', desc = '') => {
+  filterContacts: async (keyword, offset, limit, asc, desc) => {
     const url = apiURL + '/contact/filter';
-    return await newRequest().getJson(url, {keyword, offset, limit, asc, desc});
+    return await newRequest().getJson(url, filterQuery({keyword, offset, limit, asc, desc}));
   }
 };
