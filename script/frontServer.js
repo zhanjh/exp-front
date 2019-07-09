@@ -18,13 +18,13 @@ const front = require('gap-node-front')({
   staticHost: staticHost,
   webpack: {
     publicSlug: {
-      dev: 'dev/js',
-      dist: 'dist/js'
+      dev: 'front/dev/js',
+      dist: 'front/dist/js'
     },
     contextDir: 'src/js/web',
     outputDir: {
-      dev: 'site/static/dev/js',
-      dist: 'site/static/dist/js'
+      dev: 'site/static/front/dev/js',
+      dist: 'site/static/front/dist/js'
     },
     alias: {},
     modules: [
