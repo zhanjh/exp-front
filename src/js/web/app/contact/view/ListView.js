@@ -167,10 +167,10 @@ export class ListView extends View {
     //console.log(currentPage, totalPage);
 
     const prev = currentPage === 1 ? 
-      '<li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>' :
+      '<li class="pagination-previous disabled">Previous</li>' :
       '<li class="pagination-previous"><a class="paginate" href="javascript:;">Previous</a></li>';
     const next = currentPage === totalPage ?
-      '<li class="pagination-next disabled">Next <span class="show-for-sr">page</span></li>' :
+      '<li class="pagination-next disabled">Next</li>' :
       '<li class="pagination-next"><a class="paginate" href="javascript:;" aria-label="Next page">Next</a></li>';
 
     let pages = [];
@@ -190,7 +190,7 @@ export class ListView extends View {
       }
 
       if (index === currentPage) {
-        return `<li class="current"><span class="show-for-sr">You're on page</span> ${index}</li>`;
+        return `<li class="current">${index}</li>`;
       } else {
         return `<li><a class="paginate" href="javascript:;" aria-label="Page ${index}">${index}</a></li>`;
       }
